@@ -178,11 +178,3 @@ src/
 ## Aprendizados
 
 Neste projeto foram praticados conceitos de criação de APIs REST com Express, uso de TypeScript no backend, organização em camadas, manipulação de dados em memória, leitura de JSON local, filtros por query params e tratamento de erros.
-
-## Melhorias futuras
-
-- Persistir os jogadores em um banco de dados.
-- Criar testes automatizados para as rotas.
-- Melhorar validações no cadastro e atualização.
-- Adicionar autenticação para rotas de criação, edição e remoção.
-- Expandir os dados de clubes e jogadores.

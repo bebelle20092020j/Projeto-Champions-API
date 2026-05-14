@@ -1,126 +1,74 @@
 # Champions API
 
-API REST desenvolvida em Node.js, Express e TypeScript para listar e gerenciar jogadores e clubes da Champions League.
+API desenvolvida no bootcamp da DIO para praticar backend com Node.js, Express e TypeScript. O projeto trabalha com jogadores e clubes de futebol, permitindo listar, buscar, criar, atualizar e remover jogadores, além de consultar clubes cadastrados.
 
-O projeto usa uma base de dados em memoria para os jogadores e um arquivo JSON local para os clubes. Ele foi organizado em camadas para deixar a API mais facil de manter: rotas, controllers, services, repositories, models e utilitarios HTTP.
+## Sobre o projeto
 
-## Tecnologias
+A proposta desta API é simular uma base simples inspirada em jogadores e clubes da Champions League. O foco principal do projeto é treinar a criação de rotas REST, separação de responsabilidades e padronização de respostas HTTP.
 
-- Node.js
-- TypeScript
-- Express
-- CORS
-- TSX para ambiente de desenvolvimento
-- TSUP para gerar a build de producao
-
-## Como o projeto foi criado
-
-O projeto foi criado como uma API simples em Express com TypeScript. A estrutura separa as responsabilidades da aplicacao:
-
-- `src/server.ts`: inicia o servidor HTTP.
-- `src/app.ts`: configura middlewares, CORS, rotas, health check e tratamento de erros.
-- `src/routes.ts`: registra os endpoints da API.
-- `src/controllers`: recebe requisicoes HTTP e envia respostas.
-- `src/services`: concentra regras de negocio e validacoes.
-- `src/repositories`: acessa os dados da aplicacao.
-- `src/models`: define os tipos TypeScript usados no projeto.
-- `src/utils`: helpers reutilizaveis, como respostas HTTP padronizadas.
-- `src/data`: arquivos de dados locais.
+Os jogadores ficam em memória durante a execução da aplicação. Já os clubes são lidos a partir de um arquivo JSON local.
 
 ## Funcionalidades
 
 - Listar jogadores.
 - Buscar jogador por ID.
-- Filtrar jogadores por nome, clube, nacionalidade ou posicao.
-- Criar jogador.
-- Atualizar estatisticas de um jogador.
-- Deletar jogador.
+- Filtrar jogadores por nome, clube, nacionalidade ou posição.
+- Cadastrar um novo jogador.
+- Atualizar estatísticas de um jogador.
+- Remover jogador.
 - Listar clubes.
 - Buscar clube por ID.
-- Verificar saude da API.
-- Tratamento de erros com respostas padronizadas.
+- Verificar se a API está online.
+- Retornar erros de forma padronizada.
 
-## Como executar
+## Tecnologias utilizadas
 
-Instale as dependencias:
+- Node.js
+- TypeScript
+- Express
+- CORS
+- TSX
+- TSUP
+
+## Como rodar
+
+Instale as dependências:
 
 ```bash
 npm install
 ```
 
-Crie um arquivo `.env` na raiz do projeto com a porta da aplicacao:
+Crie ou mantenha um arquivo `.env` na raiz do projeto:
 
 ```env
 PORT=3333
 ```
 
-Execute em modo desenvolvimento:
+Execute em desenvolvimento:
 
 ```bash
 npm run start:dev
 ```
 
-A API ficara disponivel em:
+A API ficará disponível em:
 
-```text
+```txt
 http://localhost:3333
 ```
 
-Endpoint principal:
+## Rotas principais
 
-```text
-http://localhost:3333/api
-```
-
-## Scripts disponiveis
-
-```bash
-npm run start:dev
-```
-
-Executa a API em modo desenvolvimento.
-
-```bash
-npm run start:watch
-```
-
-Executa a API em modo watch, reiniciando quando houver alteracoes.
-
-```bash
-npm run build
-```
-
-Valida o TypeScript e gera a build em `dist`.
-
-```bash
-npm run dist
-```
-
-Executa o mesmo processo de build.
-
-```bash
-npm run start:dist
-```
-
-Gera a build e executa a versao compilada.
-
-## Endpoints
-
-### Health check
+### Status da API
 
 ```http
 GET /health
 ```
 
-Retorna o status da API.
-
-### Informacoes da API
+### Informações gerais
 
 ```http
 GET /api
 ```
-
-Retorna o nome da API e os principais endpoints disponiveis.
 
 ### Jogadores
 
@@ -128,9 +76,7 @@ Retorna o nome da API e os principais endpoints disponiveis.
 GET /api/players
 ```
 
-Lista todos os jogadores.
-
-Tambem e possivel filtrar usando query params:
+Também é possível filtrar jogadores usando query params:
 
 ```http
 GET /api/players?club=Liverpool
@@ -139,19 +85,41 @@ GET /api/players?nationality=Brazil
 GET /api/players?position=Forward
 ```
 
+Buscar jogador por ID:
+
 ```http
 GET /api/players/:id
 ```
 
-Busca um jogador pelo ID.
+Criar jogador:
 
 ```http
 POST /api/players
 ```
 
-Cria um novo jogador.
+Atualizar estatísticas:
 
-Exemplo de corpo:
+```http
+PATCH /api/players/:id
+```
+
+Remover jogador:
+
+```http
+DELETE /api/players/:id
+```
+
+### Clubes
+
+```http
+GET /api/clubs
+```
+
+```http
+GET /api/clubs/:id
+```
+
+## Exemplo de cadastro
 
 ```json
 {
@@ -171,13 +139,7 @@ Exemplo de corpo:
 }
 ```
 
-```http
-PATCH /api/players/:id
-```
-
-Atualiza uma ou mais estatisticas de um jogador.
-
-Exemplo de corpo:
+## Exemplo de atualização
 
 ```json
 {
@@ -186,56 +148,41 @@ Exemplo de corpo:
 }
 ```
 
-```http
-DELETE /api/players/:id
+## Scripts
+
+```json
+{
+  "build": "tsc --noEmit && tsup src/server.ts",
+  "dist": "npm run build",
+  "start:dev": "tsx --env-file=.env src/server.ts",
+  "start:watch": "tsx watch --env-file=.env src/server.ts",
+  "start:dist": "npm run dist && node dist/server.js"
+}
 ```
 
-Remove um jogador pelo ID.
+## Estrutura
 
-### Clubes
-
-```http
-GET /api/clubs
+```txt
+src/
+  controllers/
+  data/
+  models/
+  repositories/
+  services/
+  utils/
+  app.ts
+  routes.ts
+  server.ts
 ```
 
-Lista todos os clubes.
+## Aprendizados
 
-```http
-GET /api/clubs/:id
-```
+Neste projeto foram praticados conceitos de criação de APIs REST com Express, uso de TypeScript no backend, organização em camadas, manipulação de dados em memória, leitura de JSON local, filtros por query params e tratamento de erros.
 
-Busca um clube pelo ID.
+## Melhorias futuras
 
-## Respostas de erro
-
-A API retorna mensagens padronizadas para erros comuns:
-
-- `400 Bad Request`: dados invalidos ou JSON malformado.
-- `404 Not Found`: rota ou recurso nao encontrado.
-- `409 Conflict`: tentativa de criar jogador com ID ja existente.
-- `500 Internal Server Error`: erro interno inesperado.
-
-## Estrutura do projeto
-
-```text
-projeto-champions/
-├── src/
-│   ├── controllers/
-│   ├── data/
-│   ├── models/
-│   ├── repositories/
-│   ├── services/
-│   ├── utils/
-│   ├── app.ts
-│   ├── routes.ts
-│   └── server.ts
-├── .env
-├── package.json
-├── package-lock.json
-├── tsconfig.json
-└── README.md
-```
-
-## Observacoes
-
-Os dados de jogadores ficam em memoria. Isso significa que alteracoes feitas por `POST`, `PATCH` ou `DELETE` existem apenas enquanto o servidor estiver rodando. Ao reiniciar a aplicacao, os dados voltam ao estado original definido no codigo.
+- Persistir os jogadores em um banco de dados.
+- Criar testes automatizados para as rotas.
+- Melhorar validações no cadastro e atualização.
+- Adicionar autenticação para rotas de criação, edição e remoção.
+- Expandir os dados de clubes e jogadores.

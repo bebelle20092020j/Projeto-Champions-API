@@ -1,0 +1,5 @@
+
+> projeto-champions@1.0.0 start:dev
+> tsx --env-file=.env src/server.ts
+
+Server running at http://localhost:3333

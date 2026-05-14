@@ -1,7 +1,7 @@
 {
   "name": "projeto-champions",
   "version": "1.0.0",
-  "description": "",
+  "description": "API de jogadores e clubes desenvolvida no bootcamp da DIO com Node.js, Express e TypeScript.",
   "main": "index.js",
   "scripts": {
     "build": "tsc --noEmit && tsup src/server.ts",
